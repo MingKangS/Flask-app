@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{% for post in posts.items %}
+    <div>
+        <a href="{{ url_for('users.user_posts', username=post.author.username) }}">{{ post.author.username }}</a>
+        <a href= " {{ url_for('posts.post', post_id=post.id) }} " >{{ post.title }}</a>
+        {{ post.content }}
+    </div>
+{% endfor %}
+{% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+        <a href="{{ url_for('main.home', page=page_num) }}">{{page_num}}</a>
+    {% else %}
+        ...
+    {% endif %}
+{% endfor %}
+{% endblock %}
